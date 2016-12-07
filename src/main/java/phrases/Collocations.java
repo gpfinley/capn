@@ -19,11 +19,7 @@ public class Collocations implements Iterable<Phrase> {
 
     // a directed graph made up of nested HashMaps
     // Stores all collocations in a format that is convenient when applying them to text
-//    private transient Map wordGraph;
     private final PhraseGraph phraseGraph;
-
-    // dummy key placed at the end of the directed graph
-//    private static final String STOP = "STOP39523";
 
     /**
      * Set up the collocations to be kept in sorted order: first by size, then alphabetically
@@ -124,37 +120,12 @@ public class Collocations implements Iterable<Phrase> {
         return collocationScores.keySet().iterator();
     }
 
-//    /**
-//     * Creates a finite state graph representing all possible collocations under this scheme
-//     * This needs to be done before collocations can be written
-//     */
-//    private void generateWordGraph() {
-////        wordGraph = new HashMap<>();
-//        for(Phrase phrase : collocationScores.keySet()) {
-//            List<String> words = new ArrayList<>(phrase.getWords());
-//            Map addToThisMap = wordGraph;
-//            while(true) {
-//                String firstWord = words.get(0);
-//                if(!addToThisMap.containsKey(firstWord)) {
-//                    addToThisMap.put(firstWord, new HashMap());
-//                }
-//                addToThisMap = (Map)addToThisMap.get(firstWord);
-//                words.remove(0);
-//                if(words.size() == 0) {
-//                    addToThisMap.put(STOP, null);
-//                    break;
-//                }
-//            }
-//        }
-//    }
-
     /**
      * Apply collocations to this bit of text
      * @param orig a String of text with words separated by whitespace
      * @return a String with collocations applied by replacing spaces with underscores.
      *          Will also collapse consecutive whitespace characters to a single space; not suitable for whole files.
      */
-    // todo: test new way with PhraseGraph
     public String apply(String orig, boolean keepCase) {
         StringBuilder builder = new StringBuilder();
         String[] lines = orig.split("\\n+");
@@ -211,25 +182,6 @@ public class Collocations implements Iterable<Phrase> {
                 nextReport += 10000000;
             }
         }
-//
-//        BufferedReader reader = new BufferedReader(new FileReader(infile));
-//        char[] chunk = new char[10000000];
-//        long totalLength = 0;
-//        while (reader.read(chunk) > 0) {
-//            String line = new String(chunk);
-//            while(true) {
-//                int nextByte = reader.read();
-//                char nextChar = (char) nextByte;
-//                 todo: at least have this scan for a line!
-//                if(nextByte < 0 || nextChar == ' ') break;
-//                line += (char) nextByte;
-//            }
-//            totalLength += line.length();
-//            System.out.println(totalLength);
-//            String toWrite = apply(line);
-//            writer.write(toWrite);
-//            writer.write("\n");
-//        }
 
         writer.flush();
         writer.close();

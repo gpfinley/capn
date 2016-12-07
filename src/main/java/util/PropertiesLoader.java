@@ -35,7 +35,6 @@ public class PropertiesLoader {
         }
     }
 
-
     /**
      * To get any generic property that doesn't have its own function
      * @param prop the String name of the property
@@ -135,7 +134,6 @@ public class PropertiesLoader {
         }
     }
 
-    // todo: how should umls resources be loaded? provide them in config file rather than CLAs to mains--but files directly, or directories?
     public static Path getMrconsoPath() {
         return Paths.get(properties.getProperty("metathesaurusHome")).resolve("MRCONSO.RRF");
     }
